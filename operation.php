@@ -23,6 +23,9 @@
   <body>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script type='text/javascript' src='common.js'></script>
+	<script type='text/javascript' src='css.js'></script>
+	<script type='text/javascript' src='standardista-table-sorting.js'></script>
 
     <?php require "components/header.php";
 	
@@ -37,7 +40,7 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
 }
 ?>
 
-<table class="table table-striped table-bordered" id="operation_table";>
+<table class="table table-striped table-bordered sortable" id="operation_table";>
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -50,6 +53,7 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
     </tr>
   </thead>
 	<tbody>
+
 		<?php 
 		$len = mysqli_fetch_all($mysqli->query("SELECT COUNT(*) as len FROM `operation` WHERE 1"), MYSQLI_ASSOC)[0]['len'];
 		//$accounts = mysqli_fetch_all($mysqli->query("SELECT id, name FROM `accounts`"), MYSQLI_ASSOC);

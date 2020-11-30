@@ -24,7 +24,7 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
 }
 ?>
 
-<table class="table table-striped table-bordered" id="accounts_table";>
+<table class="table table-striped table-bordered sortable" id="accounts_table";>
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -50,7 +50,6 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
   		}
   		echo "</tr>";
   	}?>
-  	 
   </tbody>
 </table>
 </body>

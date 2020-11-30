@@ -24,7 +24,7 @@
 	require "components/listOfAccounts.php";
 	?>
 	<br><br><br>
-	<table class="table table-bordered">
+	<table class="table table-bordered sortable">
 		<thead>
 			<tr>
 				<th scope="col"> Добавить счет</th>

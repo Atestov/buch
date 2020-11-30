@@ -36,6 +36,10 @@
     	?>
     </select>
     <br>
+    <div class="form-group">
+	    <label for="inputDate">Дата</label>
+	    <input type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" id="Datetime" name="Datetime">
+  	</div>
     <label>Комментарий к операции</label>
     <input type="text" class="form-control" id="comment" name="comment" placeholder="Купил цветы любимой девушке">
     <br>

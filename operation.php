@@ -41,6 +41,7 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Дата платежа</th>
       <th scope="col">Счёт</th>
       <th scope="col">Получатель платежа</th>
       <th scope="col">Размер платежа</th>
@@ -52,10 +53,12 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
 		<?php 
 		$len = mysqli_fetch_all($mysqli->query("SELECT COUNT(*) as len FROM `operation` WHERE 1"), MYSQLI_ASSOC)[0]['len'];
 		//$accounts = mysqli_fetch_all($mysqli->query("SELECT id, name FROM `accounts`"), MYSQLI_ASSOC);
-		$operation = mysqli_fetch_all($mysqli->query("SELECT * FROM `operation`"), MYSQLI_ASSOC);
+		$operation = mysqli_fetch_all($mysqli->query("SELECT * FROM `operation` ORDER BY Datetime desc"), MYSQLI_ASSOC);
 		for ($i=1; $i <=$len ; $i++) {
 			echo "<tr>";
 			echo "<td>" . $i . "</td>"; //Номер столбца
+
+			echo "<td>" . $operation[$i-1]['Datetime'] . "</td>";
 
 			//Счет списания
 			if ($operation[$i-1]['debit_acc'] != 0) {

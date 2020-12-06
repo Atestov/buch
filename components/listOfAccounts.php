@@ -12,6 +12,9 @@
     </style>
 </head>
 <body>
+  <script type='text/javascript' src='common.js'></script>
+  <script type='text/javascript' src='css.js'></script>
+  <script type='text/javascript' src='standardista-table-sorting.js'></script>
 <?php 
 $mysqli = new mysqli("localhost", "root", "", "bookkeeping");
 if ($mysqli->connect_errno) {
@@ -24,7 +27,7 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
 }
 ?>
 
-<table class="table table-striped table-bordered sortable" id="accounts_table";>
+<table class="table sortable table-striped table-bordered" id="accounts_table";>
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -35,24 +38,30 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
     </tr>
   </thead>
   <tbody>
-  	<?php
-  	foreach ($rows as $key => $row) {
-  		echo "<tr><th scope='row' style='max-width:1px;'>" . ++$key . 
-  		' <form method="post" action="/buch/actions/removeAccount.php" style="float: right;">
-  			<input type="hidden" id="id" name="id" value="' . $row['id'] . '">
-  			<button type="submit" class="btn-dark" style="width: 25px; height: 25px;">x</button>
-  		</form>' . '</th>';
-  		foreach ($row as $key2 => $value) {
-  			if ($key2 == 'id') {
-  				continue;
-  			} elseif ($key2 == 'value') {
-          echo "<td>" . $value / 100 . '</td>';
-        } else {
-          echo "<td>" . $value . '</td>';
-        }
-  		}
-  		echo "</tr>";
-  	}?>
+    <?php
+    foreach ($rows as $i => $row) {
+    ?>
+    <tr>
+      <td scope="row" style="max-width: 1px;"> <b><?php echo ++$i ?></b>
+      <form method="post" action="/buch/actions/removeAccount.php" style="float: right;">
+        <input type="hidden" id="id" name="id" value="'<?php $row['id']?>'">
+        <button type="submit" class="btn-dark" style="width: 25px; height: 25px;">x</button>
+      </form>
+      </td>
+      <td>
+        <?php echo $row['accountsname'] ?>
+      </td>
+      <td>
+        <?php echo $row['type'] ?>
+      </td>
+      <td>
+        <?php echo $row['name'] ?>
+      </td>
+      <td>
+        <?php echo $row['value'] / 100 ?>
+      </td>
+    </tr>
+  <?php } ?>
   </tbody>
 </table>
 </body>

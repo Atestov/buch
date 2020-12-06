@@ -56,8 +56,7 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
 
 		<?php 
 		$len = mysqli_fetch_all($mysqli->query("SELECT COUNT(*) as len FROM `operation` WHERE 1"), MYSQLI_ASSOC)[0]['len'];
-		//$accounts = mysqli_fetch_all($mysqli->query("SELECT id, name FROM `accounts`"), MYSQLI_ASSOC);
-		$operation = mysqli_fetch_all($mysqli->query("SELECT * FROM `operation` ORDER BY Datetime desc"), MYSQLI_ASSOC);
+		$operation = mysqli_fetch_all($mysqli->query("SELECT * FROM `operation` ORDER BY `operation`.`Datetime` DESC, `operation`.`id` DESC"), MYSQLI_ASSOC);
 		for ($i=1; $i <=$len ; $i++) {
 			echo "<tr>";
 			echo "<td>" . $i . "</td>"; //Номер столбца

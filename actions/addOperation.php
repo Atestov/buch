@@ -6,7 +6,7 @@
 	}
 	$writeoff = $_REQUEST['writeoff'];
 	$enrollment = $_REQUEST['enrollment'];
-	$value = $_REQUEST['value'];
+	$value = $_REQUEST['value'] * 100;
 	$comment = $_REQUEST['comment'];
 	$datetime = $_REQUEST['Datetime'];
 

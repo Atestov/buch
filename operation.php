@@ -82,7 +82,7 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
 			}
 
 			//Размер платежа
-			echo "<td>" . $operation[$i-1]['value'] . "</td>";
+			echo "<td>" . $operation[$i-1]['value']/100 . "</td>";
 
 			//Валюта платежа
 			if ($operation[$i-1]['debit_acc'] != 0) {

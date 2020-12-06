@@ -45,8 +45,11 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
   		foreach ($row as $key2 => $value) {
   			if ($key2 == 'id') {
   				continue;
-  			}
-  			echo "<td>" . $value . '</td>';
+  			} elseif ($key2 == 'value') {
+          echo "<td>" . $value / 100 . '</td>';
+        } else {
+          echo "<td>" . $value . '</td>';
+        }
   		}
   		echo "</tr>";
   	}?>

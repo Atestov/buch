@@ -3,7 +3,7 @@
 function connect()
 {
 	static $connection = null;
-	require $_SERVER['DOCUMENT_ROOT'] . "/config/dbConfig.php";
+	require $_SERVER['DOCUMENT_ROOT'] . "/buch/config/dbConfig.php";
 
 	if (null === $connection) {
 		$connection = mysqli_connect($host, $user, $password, $dbname);

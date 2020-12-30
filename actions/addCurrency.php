@@ -1,13 +1,10 @@
 <?php
+	require_once $_SERVER['DOCUMENT_ROOT'] . "/buch/include/functions.php";
 
-	$mysqli = new mysqli("localhost", "root", "", "bookkeeping");
-	if ($mysqli->connect_errno) {
-	    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-	}
-	$name = $_REQUEST['name'];
-	$cur_code = $_REQUEST['cur_code'];
+	$name = mysqli_real_escape_string(connect(), $_REQUEST['name']);
+	$cur_code = mysqli_real_escape_string(connect(), $_REQUEST['cur_code']);
 	
 
-	$mysqli->query("INSERT INTO currency (name,cur_code) VALUES ('$name','$cur_code')");
+	sql("INSERT INTO currency (name,cur_code) VALUES ('$name','$cur_code')");
 
-	header('Location: /buch/index.php');
+	header('Location: /buch/');

@@ -12,9 +12,6 @@
     </style>
 </head>
 <body>
-  <script type='text/javascript' src='common.js'></script>
-  <script type='text/javascript' src='css.js'></script>
-  <script type='text/javascript' src='standardista-table-sorting.js'></script>
 <?php 
 $mysqli = new mysqli("localhost", "root", "", "bookkeeping");
 if ($mysqli->connect_errno) {

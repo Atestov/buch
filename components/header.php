@@ -1,5 +1,5 @@
 <?php
-  require $_SERVER['DOCUMENT_ROOT'] . "/buch/include/functions.php";
+  require_once $_SERVER['DOCUMENT_ROOT'] . "/buch/include/functions.php";
 ?>
 
 <!DOCTYPE html>

@@ -26,10 +26,7 @@ function sql($request)
 {
 	$responce = mysqli_query(connect(), $request);
 	if (! $responce === true && $responce !== false) {
-		$result = [];
-		while ($row = mysqli_fetch_assoc($responce)) {
-			$currency[] = $row;
-		}
+		$result = mysqli_fetch_all($responce, MYSQLI_ASSOC);
 		return $result;
 	}
 	return $responce;

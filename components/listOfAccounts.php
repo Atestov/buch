@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<style>
-    	table#accounts_table {
-    		float: right;
-    		width: 98%;
-    		margin-left: 1%;
-    		margin-right: 1%;
-
-    	}
-    </style>
-</head>
-<body>
 <?php 
-$mysqli = new mysqli("localhost", "root", "", "bookkeeping");
-if ($mysqli->connect_errno) {
-    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
 
-if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.type, currency.name, accounts.value, accounts.id FROM accounts, currency WHERE accounts.currency = currency.id ORDER BY type")) {
-	$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	$result->close();
-}
+$rows = sql(
+  "SELECT accounts.name as accountName, accounts.type, currency.name, accounts.value, accounts.id 
+  FROM accounts, currency 
+  WHERE accounts.currency = currency.id 
+  ORDER BY type"
+);
+
 ?>
 
 <table class="table sortable table-striped table-bordered" id="accounts_table";>
@@ -35,31 +20,29 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
     </tr>
   </thead>
   <tbody>
-    <?php
-    foreach ($rows as $i => $row) {
-    ?>
+    <?php foreach ($rows as $i => $row): ?>
     <tr>
-      <td scope="row" style="max-width: 1px;"> <b><?php echo ++$i ?></b>
-      <form method="post" action="/buch/actions/removeAccount.php" style="float: right;">
-        <input type="hidden" id="id" name="id" value="'<?php $row['id']?>'">
-        <button type="submit" class="btn-dark" style="width: 25px; height: 25px;">x</button>
-      </form>
+      <td scope="row" style="max-width: 0px;">
+        <b><?= ++$i ?></b>
+        <!-- Кнопка удаления счета. Предположу что существует способ лучше, но мне пока не хватает знаний -->
+        <form method="post" action="/buch/actions/removeAccount.php" style="float: right;">
+          <input type="hidden" id="id" name="id" value="'<?php $row['id']?>'">
+          <button type="submit" class="btn-circle">x</button>
+        </form>
       </td>
       <td>
-        <?php echo $row['accountsname'] ?>
+        <?= $row['accountName'] ?>
       </td>
       <td>
-        <?php echo $row['type'] ?>
+        <?= $row['type'] ?>
       </td>
       <td>
-        <?php echo $row['name'] ?>
+        <?= $row['name'] ?>
       </td>
       <td>
-        <?php echo $row['value'] / 100 ?>
+        <?= $row['value'] / 100 ?> <!-- деление на 100 потому что в БД валюта храниться в "копейках" -->
       </td>
     </tr>
-  <?php } ?>
+  <?php endforeach ?>
   </tbody>
 </table>
-</body>
-</html>

@@ -10,7 +10,7 @@ $data = sql("
 	LEFT JOIN accounts as cAcc on operation.credit_acc = cAcc.id 
 	LEFT JOIN currency on dAcc.currency = currency.id 
 	Left JOIN currency as currency2 on cAcc.currency = currency2.id
-	ORDER BY `operation`.`Datetime` DESC, `operation`.`id` ASC
+	ORDER BY `operation`.`Datetime` DESC, `operation`.`id` DESC
 	LIMIT 10
 ");
 
@@ -45,7 +45,7 @@ $data = sql("
 					<?= $operation['credit'] ? $operation['credit'] : 'Внешний счет' ?>
 				</td>
 				<td>
-					<?= $operation['value'] ?>
+					<?= $operation['value'] / 100 ?>
 				</td>
 				<td>
 					<?= $operation['валюта списания'] ? $operation['валюта списания'] : $operation['валюта зачисления'] ?>

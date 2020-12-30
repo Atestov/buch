@@ -26,7 +26,7 @@ $rows = sql(
         <b><?= ++$i ?></b>
         <!-- Кнопка удаления счета. Предположу что существует способ лучше, но мне пока не хватает знаний -->
         <form method="post" action="/buch/actions/removeAccount.php" style="float: right;">
-          <input type="hidden" id="id" name="id" value="'<?php $row['id']?>'">
+          <input type="hidden" id="id" name="id" value="<?= $row['id']?>">
           <button type="submit" class="btn-circle">x</button>
         </form>
       </td>

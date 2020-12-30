@@ -1,11 +1,8 @@
 <?php
+	require_once $_SERVER['DOCUMENT_ROOT'] . "/buch/include/functions.php";
 
-	$mysqli = new mysqli("localhost", "root", "", "bookkeeping");
-	if ($mysqli->connect_errno) {
-	    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-	}
-	$id = $_REQUEST['id'];	
+	$id = mysqli_real_escape_string(connect(), $_REQUEST['id']);	
 
-	$mysqli->query("DELETE FROM `accounts` WHERE id = '$id'");
+	sql("DELETE FROM `accounts` WHERE id = '$id'");
 
-	header('Location: /buch/index.php');
+	header('Location: /buch/');

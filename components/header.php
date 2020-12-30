@@ -30,9 +30,9 @@
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="/buch/">Счета</a>
         <a class="p-2 text-dark" href="/buch/pages/operation.php">Операции</a>
-        <a class="p-2 text-dark" href="#">Статистика</a>
-        <a class="p-2 text-dark" href="#">Бюджет</a>
-        <a class="p-2 text-dark" href="#">Валюты</a>
+        <a class="p-2 text-dark" href="/buch/pages/statistics.php">Статистика</a>
+        <a class="p-2 text-dark" href="/buch/pages/budget.php">Бюджет</a>
+        <a class="p-2 text-dark" href="/buch/pages/currency.php">Валюты</a>
       </nav>
       <a class="btn btn-outline-primary" href="#">Войти</a>
     </div>

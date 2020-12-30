@@ -1,4 +1,5 @@
-<?php require $_SERVER['DOCUMENT_ROOT'] . "/buch/components/header.php";
+<?php 
+require $_SERVER['DOCUMENT_ROOT'] . "/buch/components/header.php";
 	
 $mysqli = new mysqli("localhost", "root", "", "bookkeeping");
 if ($mysqli->connect_errno) {

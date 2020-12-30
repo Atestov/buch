@@ -17,7 +17,7 @@ $currency = sql('SELECT currency.name, currency.id FROM currency');
 		<label>Валюта счёта</label>
 		<select class="form-control" id="currency" name="currency">
 		<?php foreach ($currency as $i): ?>
-			<option value="<?php $i['id']?>"><?= $i['name'] ?></option>
+			<option value="<?= $i['id']?>"><?= $i['name'] ?></option>
 		<?php endforeach ?>
 		</select>
 	</div>

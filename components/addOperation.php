@@ -9,26 +9,29 @@ $data = sql('SELECT accounts.name as account, currency.name, accounts.id FROM ac
 		<input type="text" class="form-control" id="value" name="value" placeholder="555.99">
 	</div>
 	<div class="form-group">
+
 		<label>Счет списания</label>
 		<select class="form-control" id="writeoff" name="writeoff">
-		<option value='0'> Внешний счет </option>
-		<?php foreach ($data as $i): ?>
-			<option value='<?php $i['id']?>'><?= $i['account'] . ' - ' . $i['name'] ?></option>
-		<?php endforeach ?>
+			<option value='0'> Внешний счет </option>
+			<?php foreach ($data as $i): ?>
+				<option value="<?= $i['id']?>"><?= $i['account'] . ' - ' . $i['name'] ?></option>
+			<?php endforeach ?>
 		</select>
 	</div>
+
 	<div class="form-group">
 	    <label>Счет зачисления</label>
 	    <select class="form-control" id="enrollment" name="enrollment">
 	    	<option value='0'> Внешний счет </option>
 			<?php foreach ($data as $i): ?>
-				<option value='<?php $i['id']?>'><?= $i['account'] . ' - ' . $i['name'] ?></option>
+				<option value="<?= $i['id']?>"><?= $i['account'] . ' - ' . $i['name'] ?></option>
 			<?php endforeach ?>
 	    </select>
 	</div>
+
     <div class="form-group">
 	    <label for="inputDate">Дата</label>
-	    <input type="date" class="form-control" value="<?php echo date('Y-m-d'); ?>" id="Datetime" name="Datetime">
+	    <input type="date" class="form-control" value="<?= date('Y-m-d'); ?>" id="Datetime" name="Datetime">
   	</div>
 
     <label>Комментарий к операции</label>

@@ -20,13 +20,13 @@ function isCurrentUrl($url)
 * Функция осуществляет sql запрос
 * принимает строку содержащую запрос
 * возвращает массив с данными если запрос успешен
-* или false если запрос не успешен
+* или результат выполнения запроса
 */
 function sql($request)
 {
 	$responce = mysqli_query(connect(), $request);
-	if ($responce === false) {
-		return false;
+	if ($responce === false || $responce === true) { // Ответ на запрос не массив с данными, а результат запроса
+		return $responce;
 	}
 	return mysqli_fetch_all($responce, MYSQLI_ASSOC);
 }

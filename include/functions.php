@@ -25,5 +25,8 @@ function isCurrentUrl($url)
 function sql($request)
 {
 	$responce = mysqli_query(connect(), $request);
+	if ($responce === false) {
+		return false;
+	}
 	return mysqli_fetch_all($responce, MYSQLI_ASSOC);
 }

@@ -2,15 +2,8 @@
 /**
 * Создание нового счета
 */
-$result = mysqli_query(
-    connect(),
-    'SELECT currency.name, currency.id FROM currency');
 
-$currency = [];
-while ($row = mysqli_fetch_assoc($result)) {
-	$currency[] = $row;
-}
-
+$currency = sql('SELECT currency.name, currency.id FROM currency');
 
 ?>
 <form method="post" action="/buch/actions/addAccount.php">

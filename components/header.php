@@ -1,3 +1,7 @@
+<?php
+  require $_SERVER['DOCUMENT_ROOT'] . "/buch/include/functions.php";
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

@@ -17,7 +17,7 @@ $data = sql("
 
 ?>
 
-<table class="table table-striped table-bordered sortable" id="operation_table";>
+<table class="table sortable table-striped table-bordered " id="operation_table";>
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -55,7 +55,8 @@ $data = sql("
 				</td>
 			</tr>
 		<?php endforeach ?>	
-  </tbody>
+  	</tbody>
 </table>
-  </body>
+
+</body>
 </html>

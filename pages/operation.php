@@ -1,33 +1,4 @@
-<!doctype html>
-<html lang="ru">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-    <title>Домашняя бухгалтерия</title>
-    <style type="text/css">
-    	table#operation_table {
-    		float: right;
-    		width: 98%;
-    		margin-left: 1%;
-    		margin-right: 1%;
-
-    	}
-    </style>
-    
-  </head>
-  <body>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <script type='text/javascript' src='common.js'></script>
-	<script type='text/javascript' src='css.js'></script>
-	<script type='text/javascript' src='standardista-table-sorting.js'></script>
-
-    <?php require "components/header.php";
+<?php require $_SERVER['DOCUMENT_ROOT'] . "/buch/components/header.php";
 	
 $mysqli = new mysqli("localhost", "root", "", "bookkeeping");
 if ($mysqli->connect_errno) {
@@ -55,8 +26,10 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
 	<tbody>
 
 		<?php 
+
 		$len = mysqli_fetch_all($mysqli->query("SELECT COUNT(*) as len FROM `operation` WHERE 1"), MYSQLI_ASSOC)[0]['len'];
 		$operation = mysqli_fetch_all($mysqli->query("SELECT * FROM `operation` ORDER BY `operation`.`Datetime` DESC, `operation`.`id` DESC"), MYSQLI_ASSOC);
+
 		for ($i=1; $i <=$len ; $i++) {
 			echo "<tr>";
 			echo "<td>" . $i . "</td>"; //Номер столбца

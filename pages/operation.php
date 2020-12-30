@@ -1,15 +1,20 @@
 <?php 
 require $_SERVER['DOCUMENT_ROOT'] . "/buch/components/header.php";
 	
-$mysqli = new mysqli("localhost", "root", "", "bookkeeping");
-if ($mysqli->connect_errno) {
-    echo "Не удалось подключиться к MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-}
 
-if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.type, currency.name, accounts.value, accounts.id FROM accounts, currency WHERE accounts.currency = currency.id ORDER BY type")) {
-	$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-	$result->close();
-}
+$data = sql("
+	SELECT Datetime, operation.value, operation.comment, dAcc.name as debit, cAcc.name as credit, 
+	currency.name as 'валюта списания', currency2.name as 'валюта зачисления' 
+	FROM operation
+	LEFT JOIN accounts as dAcc on operation.debit_acc = dAcc.id 
+	LEFT JOIN accounts as cAcc on operation.credit_acc = cAcc.id 
+	LEFT JOIN currency on dAcc.currency = currency.id 
+	Left JOIN currency as currency2 on cAcc.currency = currency2.id
+	ORDER BY `operation`.`Datetime` DESC, `operation`.`id` ASC
+	LIMIT 10
+");
+
+
 ?>
 
 <table class="table table-striped table-bordered sortable" id="operation_table";>
@@ -25,54 +30,31 @@ if ($result = $mysqli->query("SELECT accounts.name as accountsname, accounts.typ
     </tr>
   </thead>
 	<tbody>
-
-		<?php 
-
-		$len = mysqli_fetch_all($mysqli->query("SELECT COUNT(*) as len FROM `operation` WHERE 1"), MYSQLI_ASSOC)[0]['len'];
-		$operation = mysqli_fetch_all($mysqli->query("SELECT * FROM `operation` ORDER BY `operation`.`Datetime` DESC, `operation`.`id` DESC"), MYSQLI_ASSOC);
-
-		for ($i=1; $i <=$len ; $i++) {
-			echo "<tr>";
-			echo "<td>" . $i . "</td>"; //Номер столбца
-
-			echo "<td>" . $operation[$i-1]['Datetime'] . "</td>";
-
-			//Счет списания
-			if ($operation[$i-1]['debit_acc'] != 0) {
-				$name = mysqli_fetch_all($mysqli->query(
-					"SELECT accounts.name FROM accounts WHERE accounts.id = " . $operation[$i-1]['debit_acc']),MYSQLI_ASSOC)[0];
-				echo "<td>" . $name['name'] . "</td>";
-			} else {
-				echo "<td>Внешний счёт</td>";
-			}
-			
-			//Счет зачисления
-			if ($operation[$i-1]['credit_acc'] != 0) {
-				$name = mysqli_fetch_all($mysqli->query(
-					"SELECT accounts.name FROM accounts WHERE accounts.id = " . $operation[$i-1]['credit_acc']),MYSQLI_ASSOC)[0];
-				echo "<td>" . $name['name'] . "</td>";
-			} else {
-				echo "<td>Внешний счёт</td>";
-			}
-
-			//Размер платежа
-			echo "<td>" . $operation[$i-1]['value']/100 . "</td>";
-
-			//Валюта платежа
-			if ($operation[$i-1]['debit_acc'] != 0) {
-				$name = mysqli_fetch_all($mysqli->query(
-					"SELECT currency.name FROM currency,accounts WHERE currency.id = accounts.currency and accounts.id = " . $operation[$i-1]['debit_acc']),MYSQLI_ASSOC)[0];
-				echo "<td>" . $name['name'] . "</td>";
-			} else {
-				$name = mysqli_fetch_all($mysqli->query(
-					"SELECT currency.name FROM currency,accounts WHERE currency.id = accounts.currency and accounts.id = " . $operation[$i-1]['credit_acc']),MYSQLI_ASSOC)[0];
-				echo "<td>" . $name['name'] . "</td>";
-			}
-			echo "<td>" . $operation[$i-1]['comment'] . "</td>";
-			//echo "<td>" . $accounts[id = $operation[$i-1]['debit_acc']] . "</td>"; хз как 
-			echo "</tr>";
-		}
-		?>
+		<?php foreach ($data as $key => $operation): ?>
+			<tr>
+				<td>
+					<b><?=++$key?></b>
+				</td>
+				<td>
+					<?= $operation['Datetime'] ?>
+				</td>
+				<td>
+					<?= $operation['debit'] ? $operation['debit'] : 'Внешний счет' ?>
+				</td>
+				<td>
+					<?= $operation['credit'] ? $operation['credit'] : 'Внешний счет' ?>
+				</td>
+				<td>
+					<?= $operation['value'] ?>
+				</td>
+				<td>
+					<?= $operation['валюта списания'] ? $operation['валюта списания'] : $operation['валюта зачисления'] ?>
+				</td>
+				<td>
+					<?= $operation['comment'] ?>
+				</td>
+			</tr>
+		<?php endforeach ?>	
   </tbody>
 </table>
   </body>

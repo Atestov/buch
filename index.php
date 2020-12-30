@@ -2,9 +2,9 @@
 	require "components/header.php";
 	require "components/listOfAccounts.php";
 	?>
-	
+
 	<br><br><br>
-	<table class="table table-bordered sortable">
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th scope="col"> Добавить счет</th>

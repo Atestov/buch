@@ -1,7 +1,18 @@
-<!DOCTYPE html>
-<html>
-<body>
+<?php
+/**
+* Создание нового счета
+*/
+$result = mysqli_query(
+    connect(),
+    'SELECT currency.name, currency.id FROM currency');
 
+$currency = [];
+while ($row = mysqli_fetch_assoc($result)) {
+	$currency[] = $row;
+}
+
+
+?>
 <form method="post" action="/buch/actions/addAccount.php">
 	<div class="form-group">
     <input type="textarea" class="form-control" id="name" name="name" placeholder="Название счета">
@@ -12,16 +23,9 @@
 	<div class="form-group">
 		<label>Валюта счёта</label>
 		<select class="form-control" id="currency" name="currency">
-		<?php 
-		  	if ($result = $mysqli->query("SELECT currency.name, currency.id FROM currency")) {
-		   	$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-		   	$result->close();
-		}
-		foreach ($rows as $key => $currency) {
-			$key = $currency['id'];
-			echo "<option value='$key'> " . $currency['name'] . '</option>';
-		}
-		?>
+		<?php foreach ($currency as $i): ?>
+			<option value="<?php $i['id']?>"><?= $i['name'] ?></option>
+		<?php endforeach ?>
 		</select>
 	</div>
 	<div class="form-group">
@@ -30,6 +34,3 @@
 	</div>
 	<button type="submit" class="btn btn-success">Добавить</button>
 </form>
-
-</body>
-</html>

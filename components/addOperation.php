@@ -2,7 +2,12 @@
 /*
 * Форма добавления новой расчетной операции
 */
-$data = sql('SELECT accounts.name as account, currency.name, accounts.id FROM accounts, currency WHERE accounts.currency = currency.id');
+$data = sql('
+	SELECT accounts.name as account, currency.name, accounts.id 
+	FROM accounts, currency 
+	WHERE accounts.currency = currency.id AND accounts.is_deleted = 0
+');
+
 ?>
 <form method="post" action="/buch/actions/addOperation.php">
 	<div class="form-group">

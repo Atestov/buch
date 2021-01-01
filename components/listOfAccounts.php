@@ -3,7 +3,7 @@
 $rows = sql(
   "SELECT accounts.name as accountName, accounts.type, currency.name, accounts.value, accounts.id 
   FROM accounts, currency 
-  WHERE accounts.currency = currency.id 
+  WHERE accounts.currency = currency.id AND accounts.is_deleted = 0
   ORDER BY type"
 );
 
